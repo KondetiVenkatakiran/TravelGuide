@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <title>Travel Planner</title>
+  </head>
+  <body>
+    <h1>Create a New Trip</h1>
+    <form action="/create_trip" method="POST">
+      <label for="destination">Destination:</label>
+      <input type="text" id="destination" name="destination" required />
+
+      <label for="start_date">Start Date:</label>
+      <input type="date" id="start_date" name="start_date" required />
+
+      <label for="end_date">End Date:</label>
+      <input type="date" id="end_date" name="end_date" required />
+
+      <label for="preferences">Travel Preferences:</label>
+      <textarea id="preferences" name="preferences"></textarea>
+
+      <button type="submit">Create Trip</button>
+    </form>
+  </body>
+</html>

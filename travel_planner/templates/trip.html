@@ -1,0 +1,50 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Travel Planning Assistant</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Travel Planning Assistant</h1>
+      <form id="tripForm">
+        <label for="destination">Destination:</label>
+        <input type="text" id="destination" name="destination" required />
+        <label for="startDate">Start Date:</label>
+        <input type="datetime-local" id="startDate" name="start" required />
+        <label for="endDate">End Date:</label>
+        <input type="datetime-local" id="endDate" name="end" required />
+        <label for="budget">Budget:</label>
+        <input type="number" id="budget" name="budget" required />
+        <label for="preferences">Preferences:</label>
+        <textarea id="preferences" name="preferences"></textarea>
+        <button type="submit">Create Trip</button>
+      </form>
+      <a href="/authorize">Connect to Google Calendar</a>
+    </div>
+    <script>
+      document
+        .getElementById("tripForm")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const formData = new FormData(event.target);
+          const tripData = Object.fromEntries(formData.entries());
+          const response = await fetch("/create_trip", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(tripData),
+          });
+          const result = await response.json();
+          alert(result.message);
+        });
+    </script>
+  </body>
+</html>
